@@ -1,8 +1,11 @@
+import { useState } from "react";
 import SiteHeader from "../components/landing/SiteHeader";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Kontak() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   return (
     <div className="min-h-screen bg-[#EEF3F0] font-sans text-[#12303C]">
       <SiteHeader variant="light" />
@@ -81,28 +84,52 @@ export default function Kontak() {
               transition={{ delay: 0.3 }}
               className="md:col-span-7"
             >
-              <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl shadow-[#002F45]/5 border border-white/60">
+              <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl shadow-[#002F45]/5 border border-white/60 relative overflow-hidden">
+                {isSubmitted ? (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="absolute inset-0 z-10 bg-white flex flex-col items-center justify-center p-8 text-center"
+                  >
+                    <div className="w-16 h-16 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center mb-6 shadow-sm">
+                      <Send size={28} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-[#002F45] mb-2">Pesan Terkirim!</h3>
+                    <p className="text-[#5E7580] mb-8 max-w-sm">Terima kasih telah menghubungi kami. Tim kami akan segera merespons pesan Anda.</p>
+                    <button 
+                      onClick={() => setIsSubmitted(false)}
+                      className="bg-[#EEF3F0] text-[#002F45] font-bold px-6 py-3 rounded-xl hover:bg-[#BCD4CC] transition-colors"
+                    >
+                      Kirim Pesan Lainnya
+                    </button>
+                  </motion.div>
+                ) : null}
+
                 <h3 className="text-2xl font-bold text-[#002F45] mb-6">Kirim Pesan</h3>
-                <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                <form className="space-y-6" onSubmit={(e) => {
+                  e.preventDefault();
+                  setIsSubmitted(true);
+                  e.target.reset();
+                }}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-sm font-bold text-[#12303C]">Nama Lengkap</label>
-                      <input type="text" className="w-full bg-[#EEF3F0] border-transparent rounded-xl px-4 py-3 focus:bg-white focus:ring-2 focus:ring-[#002F45] focus:border-transparent outline-none transition-all" placeholder="Masukkan nama" />
+                      <input required type="text" className="w-full bg-[#EEF3F0] border-transparent rounded-xl px-4 py-3 focus:bg-white focus:ring-2 focus:ring-[#002F45] focus:border-transparent outline-none transition-all" placeholder="Masukkan nama" />
                     </div>
                     <div className="space-y-2">
                       <label className="text-sm font-bold text-[#12303C]">Email</label>
-                      <input type="email" className="w-full bg-[#EEF3F0] border-transparent rounded-xl px-4 py-3 focus:bg-white focus:ring-2 focus:ring-[#002F45] focus:border-transparent outline-none transition-all" placeholder="nama@email.com" />
+                      <input required type="email" className="w-full bg-[#EEF3F0] border-transparent rounded-xl px-4 py-3 focus:bg-white focus:ring-2 focus:ring-[#002F45] focus:border-transparent outline-none transition-all" placeholder="nama@email.com" />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-[#12303C]">Subjek</label>
-                    <input type="text" className="w-full bg-[#EEF3F0] border-transparent rounded-xl px-4 py-3 focus:bg-white focus:ring-2 focus:ring-[#002F45] focus:border-transparent outline-none transition-all" placeholder="Topik pesan" />
+                    <input required type="text" className="w-full bg-[#EEF3F0] border-transparent rounded-xl px-4 py-3 focus:bg-white focus:ring-2 focus:ring-[#002F45] focus:border-transparent outline-none transition-all" placeholder="Topik pesan" />
                   </div>
 
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-[#12303C]">Pesan</label>
-                    <textarea rows="5" className="w-full bg-[#EEF3F0] border-transparent rounded-xl px-4 py-3 focus:bg-white focus:ring-2 focus:ring-[#002F45] focus:border-transparent outline-none transition-all resize-none" placeholder="Tuliskan pesan Anda di sini..."></textarea>
+                    <textarea required rows="5" className="w-full bg-[#EEF3F0] border-transparent rounded-xl px-4 py-3 focus:bg-white focus:ring-2 focus:ring-[#002F45] focus:border-transparent outline-none transition-all resize-none" placeholder="Tuliskan pesan Anda di sini..."></textarea>
                   </div>
 
                   <button type="submit" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#002F45] text-white font-bold px-8 py-4 rounded-xl hover:bg-[#12303C] transition-colors shadow-lg shadow-[#002F45]/20">

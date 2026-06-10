@@ -23,7 +23,7 @@ export default function Tentang() {
               Membangun Sistem <span className="text-[#E3A750]">Transportasi Cerdas</span> untuk Masa Depan
             </h1>
             <p className="text-lg text-[#5E7580] leading-relaxed">
-              Bandar Lampung Transport Map adalah platform analitik geospasial yang didedikasikan untuk memetakan sebaran fasilitas publik dan menganalisis kebutuhan infrastruktur transportasi di seluruh wilayah Bandar Lampung.
+              GeoTransit Lampung adalah platform analitik geospasial yang didedikasikan untuk memetakan sebaran fasilitas publik dan menganalisis kebutuhan infrastruktur transportasi di seluruh wilayah Bandar Lampung.
             </p>
           </motion.div>
 

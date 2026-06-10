@@ -5,13 +5,17 @@ import SiteHeader from "../components/landing/SiteHeader";
 import { 
   LineChart, Star, Info, Settings, 
   Search, MapPin, Filter, ChevronRight,
-  GraduationCap, Building2, ShoppingBag, HeartPulse, Activity
+  GraduationCap, Building2, ShoppingBag, HeartPulse, Activity, Bus
 } from "lucide-react";
 import { motion } from "framer-motion";
 
-function getActivityCategory(remark) {
-  if (!remark) return "Lainnya";
-  const r = remark.toLowerCase();
+function getActivityCategory(remark, jenis) {
+  if (!remark && !jenis) return "Lainnya";
+  const r = (remark || "").toLowerCase();
+  const j = (jenis || "").toLowerCase();
+  
+  if (r.includes("terminal") || r.includes("stasiun") || r.includes("halte") || r.includes("brt") || j.includes("terminal") || j.includes("halte") || j.includes("stasiun")) return "Transportasi";
+  
   if (r.includes("pendidikan")) return "Pendidikan";
   if (r.includes("rumah sakit") || r.includes("pusat kesehatan") || r.includes("puskesmas") || r.includes("klinik")) return "Kesehatan";
   if (r.includes("perdagangan") || r.includes("pasar") || r.includes("toko") || r.includes("hotel") || r.includes("bisnis") || r.includes("niaga")) return "Perdagangan";
@@ -21,6 +25,7 @@ function getActivityCategory(remark) {
 
 function getActivityIcon(category, size = 18) {
   switch (category) {
+    case "Transportasi": return <Bus size={size} />;
     case "Pendidikan": return <GraduationCap size={size} />;
     case "Kesehatan": return <HeartPulse size={size} />;
     case "Perdagangan": return <ShoppingBag size={size} />;
@@ -31,6 +36,7 @@ function getActivityIcon(category, size = 18) {
 
 function getActivityColor(category) {
   switch (category) {
+    case "Transportasi": return { text: "text-emerald-500", bg: "bg-emerald-500", light: "bg-emerald-50", hex: "#10b981" };
     case "Pendidikan": return { text: "text-blue-500", bg: "bg-blue-500", light: "bg-blue-50", hex: "#3b82f6" };
     case "Kesehatan": return { text: "text-red-500", bg: "bg-red-500", light: "bg-red-50", hex: "#ef4444" };
     case "Perdagangan": return { text: "text-amber-500", bg: "bg-amber-500", light: "bg-amber-50", hex: "#f59e0b" };
@@ -79,6 +85,8 @@ function getFeatureCenter(feature) {
 export default function MapPage() {
   const [geoData, setGeoData] = useState(null);
   const [transitData, setTransitData] = useState(null);
+  const [transportData, setTransportData] = useState(null);
+  const [routeData, setRouteData] = useState(null);
   
   const [priorityFilter, setPriorityFilter] = useState("Semua");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -89,6 +97,7 @@ export default function MapPage() {
   const [focusTarget, setFocusTarget] = useState(null);
 
   const [mapToggles, setMapToggles] = useState({
+    Transportasi: true,
     Pendidikan: true,
     Kesehatan: true,
     Perdagangan: true,
@@ -102,6 +111,8 @@ export default function MapPage() {
   useEffect(() => {
     fetch("/data/heatmap.geojson").then((res) => res.json()).then(setGeoData);
     fetch("/data/transit.geojson").then((res) => res.json()).then(setTransitData);
+    fetch("/data/transport.geojson").then((res) => res.json()).then(setTransportData);
+    fetch(`/data/route.geojson?t=${Date.now()}`).then((res) => res.json()).then(setRouteData).catch(e => console.error("Route data not found", e));
   }, []);
 
   const processedAreas = useMemo(() => {
@@ -121,26 +132,49 @@ export default function MapPage() {
   }, [geoData]);
 
   const processedTransits = useMemo(() => {
-    if (!transitData?.features) return [];
-    return transitData.features.map((feature, index) => {
-      const [lng, lat] = feature?.geometry?.coordinates || [105.26, -5.45];
-      const remark = feature?.properties?.REMARK || "Fasilitas Publik";
-      const name = feature?.properties?.NAMOBJ || `Lokasi ${index + 1}`;
-      const category = getActivityCategory(remark);
+    const arr = [];
+    if (transitData?.features) {
+      transitData.features.forEach((feature, index) => {
+        const [lng, lat] = feature?.geometry?.coordinates || [105.26, -5.45];
+        const remark = feature?.properties?.REMARK || "Fasilitas Publik";
+        const name = feature?.properties?.NAMOBJ || `Lokasi ${index + 1}`;
+        const category = getActivityCategory(remark, feature?.properties?.JENIS);
 
-      return {
-        id: `${name}-${index}`,
-        feature,
-        name,
-        detail: remark,
-        lat,
-        lng,
-        latlng: [lat, lng],
-        category,
-        colorData: getActivityColor(category)
-      };
-    });
-  }, [transitData]);
+        arr.push({
+          id: `transit-${name}-${index}`,
+          feature,
+          name,
+          detail: remark,
+          lat,
+          lng,
+          latlng: [lat, lng],
+          category,
+          colorData: getActivityColor(category)
+        });
+      });
+    }
+    if (transportData?.features) {
+      transportData.features.forEach((feature, index) => {
+        const [lng, lat] = feature?.geometry?.coordinates || [105.26, -5.45];
+        const remark = feature?.properties?.REMARK || "Fasilitas Transportasi";
+        const name = feature?.properties?.NAMOBJ || `Transportasi ${index + 1}`;
+        const category = getActivityCategory(remark, feature?.properties?.JENIS);
+
+        arr.push({
+          id: `transport-${name}-${index}`,
+          feature,
+          name,
+          detail: remark,
+          lat,
+          lng,
+          latlng: [lat, lng],
+          category,
+          colorData: getActivityColor(category)
+        });
+      });
+    }
+    return arr;
+  }, [transitData, transportData]);
 
   const recommendationPoints = useMemo(() => {
     return processedAreas
@@ -177,7 +211,7 @@ export default function MapPage() {
   }, [processedTransits, searchTerm, selectedCategory, mapToggles]);
 
   const stats = useMemo(() => {
-    const counts = { Pendidikan: 0, Kesehatan: 0, Perdagangan: 0, Pemerintahan: 0, Lainnya: 0 };
+    const counts = { Transportasi: 0, Pendidikan: 0, Kesehatan: 0, Perdagangan: 0, Pemerintahan: 0, Lainnya: 0 };
     processedTransits.forEach(t => counts[t.category]++);
     return { total: processedTransits.length, ...counts };
   }, [processedTransits]);
@@ -235,9 +269,10 @@ export default function MapPage() {
             </div>
 
             {/* Categories */}
-            <div className="bg-white rounded-2xl p-4 border border-white/60 shadow-sm flex justify-between">
+            <div className="bg-white rounded-2xl p-4 border border-white/60 shadow-sm flex overflow-x-auto gap-3 custom-scrollbar">
               {[
                 { id: "all", label: "Semua", icon: <MapPin size={18} />, count: stats.total, colorClass: "text-[#002F45]" },
+                { id: "Transportasi", label: "Transit", icon: <Bus size={18} />, count: stats.Transportasi, colorClass: "text-emerald-500" },
                 { id: "Pendidikan", label: "Pendidikan", icon: <GraduationCap size={18} />, count: stats.Pendidikan, colorClass: "text-blue-500" },
                 { id: "Perdagangan", label: "Niaga", icon: <ShoppingBag size={18} />, count: stats.Perdagangan, colorClass: "text-amber-500" },
                 { id: "Pemerintahan", label: "Pemerintah", icon: <Building2 size={18} />, count: stats.Pemerintahan, colorClass: "text-purple-500" },
@@ -245,7 +280,7 @@ export default function MapPage() {
                 <button 
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`flex flex-col items-center gap-1 ${selectedCategory === cat.id ? 'text-[#002F45]' : 'text-[#5E7580] hover:text-[#002F45]'}`}
+                  className={`flex flex-col shrink-0 items-center gap-1 ${selectedCategory === cat.id ? 'text-[#002F45]' : 'text-[#5E7580] hover:text-[#002F45]'}`}
                 >
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${selectedCategory === cat.id ? 'bg-[#002F45] text-[#E3A750] shadow-md' : 'bg-[#EEF3F0] ' + cat.colorClass}`}>
                     {cat.icon}
@@ -343,6 +378,7 @@ export default function MapPage() {
                   onSelectTransport={handleSelectTransport}
                   getPriorityConfig={getPriorityConfig}
                   recommendationPoints={recommendationPoints}
+                  routeData={routeData}
                 />
               </div>
             </div>

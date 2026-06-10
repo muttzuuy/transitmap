@@ -4,6 +4,7 @@ import MapPage from "./page/MapPage";
 import FullMapPage from "./page/FullMapPage";
 import Tentang from "./page/Tentang";
 import Kontak from "./page/Kontak";
+import DataPage from "./page/DataPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/full-map" element={<FullMapPage />} />
       <Route path="/tentang" element={<Tentang />} />
       <Route path="/kontak" element={<Kontak />} />
+      <Route path="/data" element={<DataPage />} />
     </Routes>
   );
 }

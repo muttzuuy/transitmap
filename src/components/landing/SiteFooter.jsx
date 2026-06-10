@@ -2,10 +2,10 @@ import {
   ArrowUpRightIcon,
   AtSignIcon,
   GlobeIcon,
-  MapIcon,
   SendIcon,
   ShareIcon,
 } from "./LandingIcons";
+import logoImage from "../../assets/geotransit-logo.png";
 
 const columns = [
   { title: "Platform", links: ["Beranda", "Fitur", "Peta", "Data", "Tentang"] },
@@ -19,13 +19,13 @@ export default function SiteFooter() {
         <div className="grid gap-10 lg:grid-cols-5">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#002F45] text-white shadow-lg shadow-[#002F45]/15">
-                <MapIcon className="h-5 w-5" />
+              <span className="flex items-center justify-center">
+                <img src={logoImage} alt="GeoTransit Lampung" className="h-10 w-auto" />
               </span>
               <span className="text-sm font-semibold leading-tight text-[#12303C]">
-                Bandar Lampung
+                GeoTransit
                 <br />
-                Transport
+                Lampung
               </span>
             </div>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-[#5E7580]">
@@ -91,7 +91,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#002F45]/8 pt-6 text-xs text-[#6B818A] sm:flex-row">
-          <p>© 2024 Bandar Lampung Transport. All rights reserved.</p>
+          <p>© 2024 GeoTransit Lampung. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <a href="#" className="hover:text-[#002F45]">
               Kebijakan Privasi

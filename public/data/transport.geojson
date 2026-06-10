@@ -1,0 +1,205 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "NAMOBJ": "Terminal Rajabasa",
+        "REMARK": "Terminal Penumpang",
+        "JENIS": "Terminal",
+        "STATUS": "Beroperasi Aktif",
+        "JAM_OPERASIONAL": "06:00 - 20:00 WIB",
+        "DESKRIPSI": "Halte transit utama dengan fasilitas ruang tunggu ber-AC.",
+        "FASILITAS": "Ruang Tunggu, Tempat Duduk, CCTV, Papan Informasi",
+        "GAMBAR_URL": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&q=80"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2346,
+          -5.3621
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "NAMOBJ": "Terminal Kemiling",
+        "REMARK": "Terminal Penumpang",
+        "JENIS": "Terminal",
+        "STATUS": "Beroperasi Aktif",
+        "JAM_OPERASIONAL": "24 Jam",
+        "DESKRIPSI": "Stasiun pergantian antar moda dengan tingkat kepadatan tinggi.",
+        "FASILITAS": "Ruang Tunggu, Tempat Duduk, CCTV, Papan Informasi",
+        "GAMBAR_URL": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&q=80"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2155,
+          -5.3978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "NAMOBJ": "Terminal Panjang",
+        "REMARK": "Terminal Penumpang",
+        "JENIS": "Terminal",
+        "STATUS": "Sedang Perawatan",
+        "JAM_OPERASIONAL": "05:00 - 22:00 WIB",
+        "DESKRIPSI": "Titik naik turun penumpang komuter di kawasan perkantoran.",
+        "FASILITAS": "Ruang Tunggu, Tempat Duduk, CCTV, Papan Informasi",
+        "GAMBAR_URL": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&q=80"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.3211,
+          -5.4682
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "NAMOBJ": "Stasiun Tanjung Karang",
+        "REMARK": "Stasiun Kereta Api",
+        "JENIS": "Stasiun",
+        "STATUS": "Beroperasi Aktif",
+        "JAM_OPERASIONAL": "06:00 - 20:00 WIB",
+        "DESKRIPSI": "Pusat transportasi antar kota dengan fasilitas ruang tunggu dan area komersial.",
+        "FASILITAS": "Ruang Tunggu, Tempat Duduk, CCTV, Papan Informasi",
+        "GAMBAR_URL": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&q=80"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2589,
+          -5.4081
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "NAMOBJ": "Halte Raden Intan",
+        "REMARK": "Halte BRT",
+        "JENIS": "Halte",
+        "STATUS": "Beroperasi Aktif",
+        "JAM_OPERASIONAL": "24 Jam",
+        "DESKRIPSI": "Halte transit utama dengan fasilitas ruang tunggu ber-AC.",
+        "FASILITAS": "Ruang Tunggu, Tempat Duduk, CCTV, Papan Informasi",
+        "GAMBAR_URL": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&q=80"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2581,
+          -5.4121
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "NAMOBJ": "Halte Bambu Kuning",
+        "REMARK": "Halte BRT",
+        "JENIS": "Halte",
+        "STATUS": "Beroperasi Aktif",
+        "JAM_OPERASIONAL": "05:00 - 22:00 WIB",
+        "DESKRIPSI": "Stasiun pergantian antar moda dengan tingkat kepadatan tinggi.",
+        "FASILITAS": "Ruang Tunggu, Tempat Duduk, CCTV, Papan Informasi",
+        "GAMBAR_URL": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&q=80"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2562,
+          -5.4093
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "NAMOBJ": "Halte Tugu Adipura",
+        "REMARK": "Halte BRT",
+        "JENIS": "Halte",
+        "STATUS": "Sedang Perawatan",
+        "JAM_OPERASIONAL": "06:00 - 20:00 WIB",
+        "DESKRIPSI": "Titik naik turun penumpang komuter di kawasan perkantoran.",
+        "FASILITAS": "Ruang Tunggu, Tempat Duduk, CCTV, Papan Informasi",
+        "GAMBAR_URL": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&q=80"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2631,
+          -5.4182
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "NAMOBJ": "Halte MBK (Mal Boemi Kedaton)",
+        "REMARK": "Halte BRT",
+        "JENIS": "Halte",
+        "STATUS": "Beroperasi Aktif",
+        "JAM_OPERASIONAL": "24 Jam",
+        "DESKRIPSI": "Pusat transportasi antar kota dengan fasilitas ruang tunggu dan area komersial.",
+        "FASILITAS": "Ruang Tunggu, Tempat Duduk, CCTV, Papan Informasi",
+        "GAMBAR_URL": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&q=80"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2577,
+          -5.3855
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "NAMOBJ": "Halte UNILA",
+        "REMARK": "Halte BRT",
+        "JENIS": "Halte",
+        "STATUS": "Beroperasi Aktif",
+        "JAM_OPERASIONAL": "05:00 - 22:00 WIB",
+        "DESKRIPSI": "Halte transit utama dengan fasilitas ruang tunggu ber-AC.",
+        "FASILITAS": "Ruang Tunggu, Tempat Duduk, CCTV, Papan Informasi",
+        "GAMBAR_URL": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&q=80"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2443,
+          -5.3652
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "NAMOBJ": "Halte Korpri",
+        "REMARK": "Halte BRT",
+        "JENIS": "Halte",
+        "STATUS": "Beroperasi Aktif",
+        "JAM_OPERASIONAL": "06:00 - 20:00 WIB",
+        "DESKRIPSI": "Stasiun pergantian antar moda dengan tingkat kepadatan tinggi.",
+        "FASILITAS": "Ruang Tunggu, Tempat Duduk, CCTV, Papan Informasi",
+        "GAMBAR_URL": "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&q=80"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2921,
+          -5.3804
+        ]
+      }
+    }
+  ]
+}

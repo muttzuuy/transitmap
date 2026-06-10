@@ -7,11 +7,13 @@ import {
   MenuIcon,
 } from "./LandingIcons";
 
+import logoImage from "../../assets/geotransit-logo.png";
+
 const navItems = [
   { label: "Beranda", href: "/#beranda", isRoute: true },
   { label: "Fitur", href: "/#fitur", isRoute: true },
   { label: "Peta", href: "/map", isRoute: true },
-  { label: "Data", href: "/#visualisasi", isRoute: true },
+  { label: "Data", href: "/data", isRoute: true },
   { label: "Tentang", href: "/tentang", isRoute: true },
   { label: "Kontak", href: "/kontak", isRoute: true },
 ];
@@ -69,11 +71,11 @@ export default function SiteHeader({ variant = "dark" }) {
           : "bg-[#002F45]/60 border-white/15 shadow-[#002F45]/30 ring-1 ring-white/10"
       }`}>
         <Link to="/#beranda" className="flex items-center gap-2.5">
-          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#E3A750] to-[#F1BE71] text-[#002F45] shadow-lg shadow-[#E3A750]/25">
-            <MapIcon className="h-5 w-5" />
+          <span className="flex items-center justify-center">
+            <img src={logoImage} alt="GeoTransit Lampung" className="h-10 w-auto drop-shadow-md" />
           </span>
           <span className={`text-sm font-bold tracking-tight sm:text-base ${isLight ? "text-[#002F45]" : "text-white"}`}>
-            Bandar Lampung
+            GeoTransit Lampung
           </span>
         </Link>
 

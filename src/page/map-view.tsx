@@ -199,7 +199,8 @@ export default function MapView({
   onSelectArea,
   onSelectTransport,
   getPriorityConfig,
-}: MapViewProps) {
+  routeData,
+}: MapViewProps & { routeData?: any }) {
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   const [routeDestination, setRouteDestination] = useState<[number, number] | null>(null);
   const [routeDistance, setRouteDistance] = useState<string>("");
@@ -381,6 +382,19 @@ export default function MapView({
           </GeoJSON>
         ))}
 
+        {/* Animated BRT Route */}
+        {routeData && (
+          <GeoJSON 
+            data={routeData} 
+            style={{
+              color: "#E3A750",
+              weight: 5,
+              opacity: 0.9,
+              className: "animated-route"
+            }}
+          />
+        )}
+
         {/* Activity Points (Using Custom DivIcon instead of CircleMarker) */}
         {filteredTransits.map((item) => {
           const active = selectedTransport?.id === item.id;
@@ -399,16 +413,46 @@ export default function MapView({
               }}
             >
               <Popup className="custom-popup border-0 shadow-2xl rounded-3xl overflow-hidden">
-                <div className="min-w-[280px] p-3">
-                  <div className="mb-4">
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest ${item.colorData.bg} text-white mb-3 shadow-sm`}>
-                      {item.category}
-                    </span>
-                    <h3 className="text-lg font-bold text-[#12303C] leading-tight">{item.name}</h3>
-                    <p className="mt-1.5 text-sm text-[#5E7580] line-clamp-2 leading-relaxed">{item.detail}</p>
+                <div className="min-w-[280px] p-0 pb-3">
+                  {item.feature?.properties?.GAMBAR_URL && (
+                    <div className="h-32 w-full mb-3">
+                      <img src={item.feature.properties.GAMBAR_URL} alt={item.name} className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                  <div className={`px-4 ${!item.feature?.properties?.GAMBAR_URL ? 'pt-4' : ''} mb-4`}>
+                    <div className="flex justify-between items-start mb-2">
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest ${item.colorData.bg} text-white shadow-sm`}>
+                        {item.category}
+                      </span>
+                      {item.feature?.properties?.STATUS && (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide text-emerald-600 bg-emerald-50 px-2 py-1 rounded">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                          {item.feature.properties.STATUS}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="text-lg font-bold text-[#12303C] leading-tight mb-2">{item.name}</h3>
+                    
+                    {item.feature?.properties?.JAM_OPERASIONAL && (
+                      <p className="text-xs font-semibold text-[#002F45] mb-2 flex items-center gap-1.5">
+                        <svg className="w-3.5 h-3.5 text-[#E3A750]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        Jam Operasional: {item.feature.properties.JAM_OPERASIONAL}
+                      </p>
+                    )}
+                    
+                    <p className="text-sm text-[#5E7580] line-clamp-3 leading-relaxed mb-3">
+                      {item.feature?.properties?.DESKRIPSI || item.detail}
+                    </p>
+
+                    {item.feature?.properties?.FASILITAS && (
+                      <div className="pt-3 border-t border-[#002F45]/5">
+                        <p className="text-[10px] uppercase font-bold text-[#6B818A] mb-1.5 tracking-wider">Fasilitas Tersedia</p>
+                        <p className="text-xs text-[#12303C] leading-relaxed">{item.feature.properties.FASILITAS}</p>
+                      </div>
+                    )}
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2 border-t border-[#EEF3F0] pt-3">
+                  <div className="grid grid-cols-3 gap-2 border-t border-[#EEF3F0] pt-3 px-3">
                     <button
                       onClick={() => handleNavigation(item.latlng)}
                       className="flex flex-col items-center justify-center gap-1.5 rounded-xl bg-[#002F45]/5 py-2.5 text-[#002F45] font-bold transition-all hover:bg-[#002F45] hover:text-[#E3A750]"

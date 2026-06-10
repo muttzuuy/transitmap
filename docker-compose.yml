@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: transitmap-frontend:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8082:80"  # bind to localhost so only host (Nginx) can reach it
+    networks:
+      - internal
+    deploy:
+      resources:
+        limits:
+          memory: 50M
+    mem_limit: 50M
+
+  db:
+    image: mariadb:10.6
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "transitmap#123"
+      MYSQL_DATABASE: "transitmap2"
+      MYSQL_USER: "transitmap"
+      MYSQL_PASSWORD: "transitmap#123"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - internal
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+    mem_limit: 200M
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  db_data:
+
+networks:
+  internal:
+    driver: bridge

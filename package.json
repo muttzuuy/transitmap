@@ -13,6 +13,7 @@
     "framer-motion": "^12.40.0",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
+    "lucide-react": "^1.17.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-leaflet": "^5.0.0",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/leaflet-routing-machine": "^3.2.9",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",

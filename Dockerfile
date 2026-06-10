@@ -1,12 +1,13 @@
 # Multi-stage Dockerfile for React + Vite (build with Node, serve with nginx)
 
 ### Build stage
-FROM node:18-alpine AS build
+FROM node:22-alpine AS build
 WORKDIR /app
 
 # Install dependencies (including devDependencies needed for build)
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm install
+RUN chmod +x node_modules/.bin/vite
 
 # Copy source and build
 COPY . .
